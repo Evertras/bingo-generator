@@ -10,7 +10,7 @@ const App: Component = () => {
     <div class={styles.App}>
       <header class={styles.header}>Bingo Generator</header>
       <BingoCard
-        pictures={new Array(25).fill(
+        pictures={new Array(24).fill(
           "https://api.lorem.space/image/drink?w=200&h=150"
         )}
       />

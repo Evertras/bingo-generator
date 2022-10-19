@@ -12,6 +12,8 @@ const sizes: {
   24: { side: 5, freeSquare: true },
   25: { side: 5, freeSquare: false },
   36: { side: 6, freeSquare: false },
+  48: { side: 7, freeSquare: true },
+  49: { side: 7, freeSquare: false },
 };
 
 const BingoCard = ({ pictures }: { pictures: string[] }) => {
@@ -19,15 +21,28 @@ const BingoCard = ({ pictures }: { pictures: string[] }) => {
     return <div class="error">Size of {pictures.length} not valid</div>;
   }
 
-  const { side } = sizes[pictures.length];
+  const { side, freeSquare } = sizes[pictures.length];
   const rows: string[][] = new Array(side);
+  console.log(side, freeSquare);
+
+  if (freeSquare) {
+    const iFreeSquare = Math.floor(pictures.length / 2);
+    const withFreeSquare = pictures.slice(0, iFreeSquare);
+    withFreeSquare.push("https://api.lorem.space/image/car?w=200&h=200");
+    withFreeSquare.push(...pictures.slice(iFreeSquare));
+
+    pictures = withFreeSquare;
+  }
 
   for (let i = 0; i < side; i++) {
     rows.push(pictures.slice(i * side, (i + 1) * side));
   }
 
-  const boxSize = 130 / side + "mm";
-  const imgSize = 118 / side + "mm";
+  const imgPaddingMM = 3;
+  const boxSizeMM = 130 / side;
+  const imgSizeMM = boxSizeMM - imgPaddingMM;
+  const boxSizeStr = boxSizeMM + "mm";
+  const imgSizeStr = imgSizeMM + "mm";
 
   return (
     <div>
@@ -44,8 +59,8 @@ const BingoCard = ({ pictures }: { pictures: string[] }) => {
                 {(pic) => (
                   <td
                     style={{
-                      height: boxSize,
-                      width: boxSize,
+                      height: boxSizeStr,
+                      width: boxSizeStr,
                       "border-width": "2px",
                       "border-style": "solid",
                       "border-color": "black",
@@ -55,8 +70,8 @@ const BingoCard = ({ pictures }: { pictures: string[] }) => {
                   >
                     <div
                       style={{
-                        width: imgSize,
-                        height: imgSize,
+                        width: imgSizeStr,
+                        height: imgSizeStr,
                         margin: "0 auto",
                       }}
                     >
