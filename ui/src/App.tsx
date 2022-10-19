@@ -8,11 +8,12 @@ import styles from "./App.module.css";
 const App: Component = () => {
   return (
     <div class={styles.App}>
-      <header class={styles.header}>
-        <BingoCard
-          pictures={[...new Array(25)].map((_, i) => (i + 1).toString())}
-        />
-      </header>
+      <header class={styles.header}>Bingo Generator</header>
+      <BingoCard
+        pictures={new Array(25).fill(
+          "https://api.lorem.space/image/drink?w=200&h=150"
+        )}
+      />
     </div>
   );
 };
