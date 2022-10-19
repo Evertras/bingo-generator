@@ -23,11 +23,7 @@
   color: #b318f0;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body {
+  width: 148.5mm;
+  height: 210mm;
 }
