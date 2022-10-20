@@ -8,13 +8,13 @@ const sizes: {
   };
 } = {
   4: { side: 2, freeSquare: false },
-  8: { side: 3, freeSquare: true },
+  //8: { side: 3, freeSquare: true },
   9: { side: 3, freeSquare: false },
   16: { side: 4, freeSquare: false },
-  24: { side: 5, freeSquare: true },
+  //24: { side: 5, freeSquare: true },
   25: { side: 5, freeSquare: false },
   36: { side: 6, freeSquare: false },
-  48: { side: 7, freeSquare: true },
+  //48: { side: 7, freeSquare: true },
   49: { side: 7, freeSquare: false },
 };
 
@@ -33,6 +33,8 @@ const BingoCard: Component<{ pictures: string[] }> = (props) => {
       withFreeSquare.push("https://api.lorem.space/image/car?w=200&h=200");
       withFreeSquare.push(...props.pictures.slice(iFreeSquare));
 
+      // TODO: Fix this... reassigning props.pictures or trying to copy it just
+      // breaks reactivity.
       //props.pictures = withFreeSquare;
     }
 
