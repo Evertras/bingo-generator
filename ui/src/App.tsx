@@ -1,5 +1,9 @@
 import type { Component } from "solid-js";
-import BingoCard from "./components/BingoCard";
+import { lazy } from "solid-js";
+import { A, Routes, Route } from "@solidjs/router";
+
+const Home = lazy(() => import("./pages/Home"));
+const BingoGenerator = lazy(() => import("./pages/BingoGenerator"));
 
 //import logo from "./logo.svg";
 import styles from "./App.module.css";
@@ -9,11 +13,16 @@ const App: Component = () => {
   return (
     <div class={styles.App}>
       <header class={styles.header}>Bingo Generator</header>
-      <BingoCard
-        pictures={new Array(24).fill(
-          "https://api.lorem.space/image/drink?w=200&h=150"
-        )}
-      />
+      <nav class={styles.nav}>
+        <A href="/">Home</A>
+        <A href="/create">Create</A>
+      </nav>
+      <div class={styles.main}>
+        <Routes>
+          <Route element={<Home />} path="/" />
+          <Route element={<BingoGenerator />} path="/create" />
+        </Routes>
+      </div>
     </div>
   );
 };

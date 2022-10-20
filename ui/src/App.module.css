@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.main {
+  padding: 5mm;
+}
+
 .logo {
   animation: logo-spin infinite 20s linear;
   height: 40vmin;
@@ -22,7 +26,22 @@
   color: #b318f0;
 }
 
-body {
-  width: 148.5mm;
-  height: 210mm;
+@media page {
+  body {
+    width: 148.5mm;
+    height: 210mm;
+  }
+}
+
+.nav {
+  background-color: #ddd;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 20px;
+}
+
+.nav a {
+  padding: 8px;
+  text-decoration: none;
+  color: black;
 }
