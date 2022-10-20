@@ -1,4 +1,4 @@
-import { For } from "solid-js";
+import { Component, For } from "solid-js";
 
 // Go up to 6 for now...
 const sizes: {
@@ -18,27 +18,30 @@ const sizes: {
   49: { side: 7, freeSquare: false },
 };
 
-const BingoCard = ({ pictures }: { pictures: string[] }) => {
-  if (!Object.hasOwn(sizes, pictures.length)) {
-    return <div class="error">Size of {pictures.length} not valid</div>;
+const BingoCard: Component<{ pictures: string[] }> = (props) => {
+  if (!Object.hasOwn(sizes, props.pictures.length)) {
+    return <div class="error">Size of {props.pictures.length} not valid</div>;
   }
 
-  const { side, freeSquare } = sizes[pictures.length];
-  const rows: string[][] = new Array(side);
-  console.log(side, freeSquare);
+  const { side, freeSquare } = sizes[props.pictures.length];
+  const getRows = () => {
+    const rows = new Array(side);
 
-  if (freeSquare) {
-    const iFreeSquare = Math.floor(pictures.length / 2);
-    const withFreeSquare = pictures.slice(0, iFreeSquare);
-    withFreeSquare.push("https://api.lorem.space/image/car?w=200&h=200");
-    withFreeSquare.push(...pictures.slice(iFreeSquare));
+    if (freeSquare) {
+      const iFreeSquare = Math.floor(props.pictures.length / 2);
+      const withFreeSquare = props.pictures.slice(0, iFreeSquare);
+      withFreeSquare.push("https://api.lorem.space/image/car?w=200&h=200");
+      withFreeSquare.push(...props.pictures.slice(iFreeSquare));
 
-    pictures = withFreeSquare;
-  }
+      //props.pictures = withFreeSquare;
+    }
 
-  for (let i = 0; i < side; i++) {
-    rows.push(pictures.slice(i * side, (i + 1) * side));
-  }
+    for (let i = 0; i < side; i++) {
+      rows.push(props.pictures.slice(i * side, (i + 1) * side));
+    }
+
+    return rows;
+  };
 
   const imgPaddingMM = 3;
   const boxSizeMM = 130 / side;
@@ -53,7 +56,7 @@ const BingoCard = ({ pictures }: { pictures: string[] }) => {
           "border-collapse": "collapse",
         }}
       >
-        <For each={rows}>
+        <For each={getRows()}>
           {(row) => (
             <tr>
               <For each={row}>
