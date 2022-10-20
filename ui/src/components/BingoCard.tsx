@@ -1,3 +1,5 @@
+import { For } from "solid-js";
+
 // Go up to 6 for now...
 const sizes: {
   [key: number]: {
@@ -46,7 +48,6 @@ const BingoCard = ({ pictures }: { pictures: string[] }) => {
 
   return (
     <div>
-      Bingo
       <table
         style={{
           "border-collapse": "collapse",
