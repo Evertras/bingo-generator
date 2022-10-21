@@ -3,17 +3,23 @@ import { createStore } from "solid-js/store";
 
 const [imageDataList, setImageData] = createStore<string[]>([]);
 
+const existHash: Map<string, boolean> = new Map<string, boolean>();
+
 const imageDataRepository = {
   getImageDataList(): string[] {
     return imageDataList;
   },
 
   addImageData(data: string) {
+    if (existHash.has(data)) return;
+
     setImageData([...imageDataList, data]);
+    existHash.set(data, true);
   },
 
   clearImageData() {
     setImageData([]);
+    existHash.clear();
   },
 };
 
