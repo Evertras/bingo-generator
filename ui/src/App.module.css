@@ -26,13 +26,6 @@
   color: #b318f0;
 }
 
-@media page {
-  body {
-    width: 148.5mm;
-    height: 210mm;
-  }
-}
-
 .nav {
   background-color: #ddd;
   padding-top: 5px;

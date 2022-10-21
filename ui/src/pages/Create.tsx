@@ -1,4 +1,4 @@
-import { Component, Match, Switch } from "solid-js";
+import { Component, For, Match, Switch } from "solid-js";
 import BingoCard from "../components/BingoCard";
 import ImageUploader from "../components/ImageUploader";
 import SizeSelector from "../components/SizeSelector";
@@ -6,6 +6,8 @@ import { useCardDataRepository } from "../contexts/cardData";
 
 const Create: Component = () => {
   const cardDataRepository = useCardDataRepository();
+
+  const cards: any[] = Array(10);
 
   return (
     <div
@@ -31,7 +33,7 @@ const Create: Component = () => {
             >
               <h1>
                 {cardDataRepository.getCardSize()} x{" "}
-                {cardDataRepository.getCardSize}
+                {cardDataRepository.getCardSize()}
               </h1>
               <div
                 style={{
@@ -56,6 +58,15 @@ const Create: Component = () => {
             >
               <ImageUploader />
             </div>
+          </div>
+          <div class="printable">
+            <For each={cards}>
+              {() => (
+                <div class="printable-block">
+                  <BingoCard />
+                </div>
+              )}
+            </For>
           </div>
         </Match>
       </Switch>

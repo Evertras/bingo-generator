@@ -20,6 +20,7 @@ const sizes: {
 };
 
 const BingoCard: Component = () => {
+  console.log("Card");
   const cardDataRepository = useCardDataRepository();
 
   if (!Object.hasOwn(sizes, cardDataRepository.getTotalSquares())) {

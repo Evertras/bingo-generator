@@ -28,8 +28,7 @@
     height: calc(297mm / 2.2);
     /* A4 width with some buffer to keep as large as possible */
     width: 200mm;
-    background-color: salmon;
-    border: 1px solid green;
+    padding: 10mm;
   }
 
   .printable-block:nth-of-type(2n) {
@@ -43,6 +42,6 @@
 
 @media not print {
   .printable {
-    visibility: visible;
+    visibility: hidden;
   }
 }
