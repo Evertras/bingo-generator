@@ -1,6 +1,7 @@
 import { Component, For } from "solid-js";
 import { useCardDataRepository } from "../contexts/cardData";
 import generateShuffledIndices from "../randomizer/shuffledIndices";
+import emptyPng from "../assets/x.png";
 
 const sizes: {
   [key: number]: {
@@ -54,7 +55,7 @@ const BingoCard: Component = () => {
 
       for (let j = i * side; j < (i + 1) * side; j++) {
         if (j >= imageData.length) {
-          row.push("/src/assets/x.png");
+          row.push(emptyPng);
         } else {
           row.push(imageData[indices[j]]);
         }

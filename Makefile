@@ -1,4 +1,5 @@
 default: ui/node_modules
+	cd ui && npm start
 
 build: ui/node_modules
 	cd ui && npm run build
