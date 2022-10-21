@@ -1,6 +1,5 @@
 import { Component, For } from "solid-js";
 
-// Go up to 6 for now...
 const sizes: {
   [key: number]: {
     side: number;
