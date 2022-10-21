@@ -25,5 +25,5 @@ jobs:
 
       - name: Sync to site S3 bucket
         run: |
-          cd main/public
+          cd ui/dist
           aws s3 sync . s3://bingo.evertras.com
