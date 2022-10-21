@@ -22,13 +22,6 @@ const BingoGenerator: Component = () => {
   const uploadComplete = (): boolean =>
     imageUploadedCount() === imageUploadCompletedCount();
 
-  createEffect(() =>
-    console.log(
-      uploadComplete(),
-      imageUploadedCount(),
-      imageUploadCompletedCount()
-    )
-  );
   const getUrls = (count: number, imgs: number) => {
     if (!uploadComplete()) {
       return [...new Array(imgs)].map(
