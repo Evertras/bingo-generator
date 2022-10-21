@@ -1,5 +1,8 @@
 default: ui/node_modules
 
+build: ui/node_modules
+	cd ui && npm run build
+
 lint: node_modules
 	npx prettier --check .
 
