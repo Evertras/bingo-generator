@@ -1,5 +1,6 @@
 import { Component, For } from "solid-js";
 import { useImageDataRepository } from "../contexts/imageData";
+import generateShuffledIndices from "../randomizer/shuffledIndices";
 
 const sizes: {
   [key: number]: {
@@ -29,6 +30,7 @@ const BingoCard: Component<{ totalImages: number }> = (props) => {
   const { side, freeSquare } = sizes[props.totalImages];
   const getRows = () => {
     const rows = new Array(side);
+    const indices = generateShuffledIndices(imageData.length);
 
     if (freeSquare) {
       const iFreeSquare = Math.floor(imageData.length / 2);
@@ -42,11 +44,15 @@ const BingoCard: Component<{ totalImages: number }> = (props) => {
     }
 
     for (let i = 0; i < side; i++) {
-      const row = imageData.slice(i * side, (i + 1) * side);
-      const missing = side - row.length;
+      const row: string[] = [];
 
-      for (let j = 0; j < missing; j++) {
-        row.push("/src/assets/x.png");
+      for (let j = i * side; j < (i + 1) * side; j++) {
+        if (j >= imageData.length) {
+          row.push("/src/assets/x.png");
+        } else {
+          console.log(indices[j]);
+          row.push(imageData[indices[j]]);
+        }
       }
 
       rows.push(row);
