@@ -3,9 +3,9 @@ import BingoCard from "../components/BingoCard";
 import ImageUploader from "../components/ImageUploader";
 import SizeSelector from "../components/SizeSelector";
 
-const BingoGenerator: Component = () => {
+const Create: Component = () => {
   // TODO: This is terrible, learn how to handle this mess of signals/session store better
-  const [size, setSize] = createSignal(3);
+  const [size, setSize] = createSignal(0);
   const totalImages = () => size() * size();
 
   const cachedImageCountStr: string | null =
@@ -88,4 +88,4 @@ const BingoGenerator: Component = () => {
   );
 };
 
-export default BingoGenerator;
+export default Create;

@@ -3,7 +3,7 @@ import { lazy } from "solid-js";
 import { A, Routes, Route } from "@solidjs/router";
 
 const Home = lazy(() => import("./pages/Home"));
-const BingoGenerator = lazy(() => import("./pages/BingoGenerator"));
+const Create = lazy(() => import("./pages/Create"));
 
 //import logo from "./logo.svg";
 import styles from "./App.module.css";
@@ -20,7 +20,7 @@ const App: Component = () => {
       <div class={styles.main}>
         <Routes>
           <Route element={<Home />} path="/" />
-          <Route element={<BingoGenerator />} path="/create" />
+          <Route element={<Create />} path="/create" />
         </Routes>
       </div>
     </div>
