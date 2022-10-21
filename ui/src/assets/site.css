@@ -1,0 +1,48 @@
+.printable {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+@media page {
+  body {
+    size: A4;
+  }
+}
+
+@media print {
+  * {
+    visibility: hidden;
+  }
+
+  .printable,
+  .printable * {
+    visibility: visible;
+  }
+
+  .printable-block {
+    break-inside: avoid;
+    /* A4 / 2.2 to get 2/page with some buffer */
+    height: calc(297mm / 2.2);
+    /* A4 width with some buffer to keep as large as possible */
+    width: 200mm;
+    background-color: salmon;
+    border: 1px solid green;
+  }
+
+  .printable-block:nth-of-type(2n) {
+    break-after: always;
+  }
+
+  .printable-block:nth-of-type(2n + 1) {
+    break-before: always;
+  }
+}
+
+@media not print {
+  .printable {
+    visibility: visible;
+  }
+}
