@@ -50,6 +50,8 @@ const Create: Component<{
                 }}
               >
                 <BingoCard totalImages={totalImages()} />
+                <BingoCard totalImages={totalImages()} />
+                <BingoCard totalImages={totalImages()} />
               </div>
             </div>
             <div

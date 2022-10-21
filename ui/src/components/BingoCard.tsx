@@ -50,7 +50,6 @@ const BingoCard: Component<{ totalImages: number }> = (props) => {
         if (j >= imageData.length) {
           row.push("/src/assets/x.png");
         } else {
-          console.log(indices[j]);
           row.push(imageData[indices[j]]);
         }
       }
