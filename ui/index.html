@@ -6,8 +6,8 @@
       src="https://www.googletagmanager.com/gtag/js?id=G-5ECDZKC47R"
     ></script>
     <script>
-      console.log(document.location.hostname);
       if (document.location.hostname.search("bingo.evertras.com") !== -1) {
+        console.log("GA");
         window.dataLayer = window.dataLayer || [];
         function gtag() {
           dataLayer.push(arguments);
