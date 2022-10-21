@@ -4,7 +4,8 @@ import ImageUploader from "../components/ImageUploader";
 import SizeSelector from "../components/SizeSelector";
 
 const BingoGenerator: Component = () => {
-  const [size, setSize] = createSignal(4);
+  // TODO: This is terrible, learn how to handle this mess of signals/session store better
+  const [size, setSize] = createSignal(3);
   const totalImages = () => size() * size();
 
   const cachedImageCountStr: string | null =
@@ -16,13 +17,33 @@ const BingoGenerator: Component = () => {
     cachedImageCount,
     { equals: false }
   );
+  const [imageUploadCompletedCount, setImageUploadCompletedCount] =
+    createSignal(0);
+  const uploadComplete = (): boolean =>
+    imageUploadedCount() === imageUploadCompletedCount();
 
+  createEffect(() =>
+    console.log(
+      uploadComplete(),
+      imageUploadedCount(),
+      imageUploadCompletedCount()
+    )
+  );
   const getUrls = (count: number, imgs: number) => {
-    const images = [...new Array(count)].map(
-      (i) =>
+    if (!uploadComplete()) {
+      return [...new Array(imgs)].map(
+        () => "https://api.lorem.space/image/drink?w=200&h=150"
+      );
+    }
+
+    const images: string[] = [];
+
+    for (let i = 0; i < count; i++) {
+      images.push(
         sessionStorage.getItem(`img_${i}`) ||
-        "https://api.lorem.space/image/drink?w=200&h=150"
-    );
+          "https://api.lorem.space/image/car?w=200&h=150"
+      );
+    }
 
     for (let i = count; i < imgs; i++) {
       images.push("https://api.lorem.space/image/car?w=200&h=150");
@@ -62,7 +83,10 @@ const BingoGenerator: Component = () => {
                 padding: "10px",
               }}
             >
-              <ImageUploader setImageUploadCount={setImageUploadedCount} />
+              <ImageUploader
+                setImageUploadCount={setImageUploadedCount}
+                setImageUploadCompletedCount={setImageUploadCompletedCount}
+              />
             </div>
           </div>
         </Match>
