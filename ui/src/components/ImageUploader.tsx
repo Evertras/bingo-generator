@@ -1,8 +1,8 @@
 import { Component } from "solid-js";
-import { useImageDataRepository } from "../contexts/imageData.jsx";
+import { useCardDataRepository } from "../contexts/cardData";
 
 const ImageUploader: Component = () => {
-  const imageDataRepository = useImageDataRepository();
+  const cardDataRepository = useCardDataRepository();
   const onChange = (e: any) => {
     const files = e.target.files;
     const numImages = files.length;
@@ -14,7 +14,7 @@ const ImageUploader: Component = () => {
         if (reader.result) {
           const data = reader.result as string;
 
-          imageDataRepository.addImageData(data);
+          cardDataRepository.addImageData(data);
         } else {
           console.error("could not read file");
         }

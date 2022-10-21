@@ -1,6 +1,8 @@
-import { For } from "solid-js";
+import { Component, For } from "solid-js";
+import { useCardDataRepository } from "../contexts/cardData";
 
-const SizeSelector = ({ setSize }: { setSize: (size: number) => void }) => {
+const SizeSelector: Component = () => {
+  const cardDataRepository = useCardDataRepository();
   const sizes = [3, 4, 5, 6, 7];
 
   return (
@@ -21,7 +23,7 @@ const SizeSelector = ({ setSize }: { setSize: (size: number) => void }) => {
               "vertical-align": "middle",
               "border-radius": "5px",
             }}
-            onClick={() => setSize(size)}
+            onClick={() => cardDataRepository.setCardSize(size)}
           >
             <div
               style={{

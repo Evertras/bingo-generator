@@ -1,5 +1,5 @@
 import { Component, For } from "solid-js";
-import { useImageDataRepository } from "../contexts/imageData";
+import { useCardDataRepository } from "../contexts/cardData";
 import generateShuffledIndices from "../randomizer/shuffledIndices";
 
 const sizes: {
@@ -19,15 +19,20 @@ const sizes: {
   49: { side: 7, freeSquare: false },
 };
 
-const BingoCard: Component<{ totalImages: number }> = (props) => {
-  if (!Object.hasOwn(sizes, props.totalImages)) {
-    return <div class="error">Size of {props.totalImages} not valid</div>;
+const BingoCard: Component = () => {
+  const cardDataRepository = useCardDataRepository();
+
+  if (!Object.hasOwn(sizes, cardDataRepository.getTotalSquares())) {
+    return (
+      <div class="error">
+        Size of {cardDataRepository.getTotalSquares()} not valid
+      </div>
+    );
   }
 
-  const imageDataRepository = useImageDataRepository();
-  const imageData = imageDataRepository.getImageDataList();
+  const imageData = cardDataRepository.getImageDataList();
 
-  const { side, freeSquare } = sizes[props.totalImages];
+  const { side, freeSquare } = sizes[cardDataRepository.getTotalSquares()];
   const getRows = () => {
     const rows = new Array(side);
     const indices = generateShuffledIndices(imageData.length);

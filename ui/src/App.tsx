@@ -1,6 +1,5 @@
 import type { Component } from "solid-js";
 import { lazy } from "solid-js";
-import { createStore } from "solid-js/store";
 import { A, Routes, Route } from "@solidjs/router";
 
 const Home = lazy(() => import("./pages/Home"));
@@ -8,11 +7,10 @@ const Create = lazy(() => import("./pages/Create"));
 
 //import logo from "./logo.svg";
 import styles from "./App.module.css";
+import Print from "./pages/Print";
 
 // <img src={logo} class={styles.logo} alt="logo" />
 const App: Component = () => {
-  const [imageDataStore, setImageDataStore] = createStore<string[]>([]);
-
   return (
     <div class={styles.App}>
       <header class={styles.header}>Bingo Generator</header>
@@ -23,15 +21,8 @@ const App: Component = () => {
       <div class={styles.main}>
         <Routes>
           <Route element={<Home />} path="/" />
-          <Route
-            element={
-              <Create
-                imageDataStore={imageDataStore}
-                setImageDataStore={setImageDataStore}
-              />
-            }
-            path="/create"
-          />
+          <Route element={<Create />} path="/create" />
+          <Route element={<Print count={30} />} path="/print" />
         </Routes>
       </div>
     </div>

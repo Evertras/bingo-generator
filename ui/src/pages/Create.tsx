@@ -1,15 +1,11 @@
-import { Component, createEffect, createSignal, Match, Switch } from "solid-js";
-import { SetStoreFunction, Store } from "solid-js/store";
+import { Component, Match, Switch } from "solid-js";
 import BingoCard from "../components/BingoCard";
 import ImageUploader from "../components/ImageUploader";
 import SizeSelector from "../components/SizeSelector";
+import { useCardDataRepository } from "../contexts/cardData";
 
-const Create: Component<{
-  imageDataStore: Store<string[]>;
-  setImageDataStore: SetStoreFunction<string[]>;
-}> = (props) => {
-  const [size, setSize] = createSignal(0);
-  const totalImages = () => size() * size();
+const Create: Component = () => {
+  const cardDataRepository = useCardDataRepository();
 
   return (
     <div
@@ -19,10 +15,10 @@ const Create: Component<{
       }}
     >
       <Switch>
-        <Match when={size() === 0}>
-          <SizeSelector setSize={(s: number) => setSize(s)} />
+        <Match when={cardDataRepository.getCardSize() === 0}>
+          <SizeSelector />
         </Match>
-        <Match when={size() !== 0}>
+        <Match when={cardDataRepository.getCardSize() !== 0}>
           <div
             style={{
               display: "flex",
@@ -34,13 +30,14 @@ const Create: Component<{
               }}
             >
               <h1>
-                {size()} x {size()}
+                {cardDataRepository.getCardSize()} x{" "}
+                {cardDataRepository.getCardSize}
               </h1>
               <div
                 style={{
                   cursor: "pointer",
                 }}
-                onClick={() => setSize(0)}
+                onClick={() => cardDataRepository.setCardSize(0)}
               >
                 Change Size
               </div>
@@ -49,7 +46,7 @@ const Create: Component<{
                   margin: "20px",
                 }}
               >
-                <BingoCard totalImages={totalImages()} />
+                <BingoCard />
               </div>
             </div>
             <div
