@@ -66,11 +66,17 @@ const BingoCard: Component = () => {
     return rows;
   };
 
+  const a4HeightMM = 297;
+  // const a4WidthMM = 210;
+
   const imgPaddingMM = 3;
-  const boxSizeMM = 130 / side;
+  // TODO: This 1.7 is totally arbitrary, printing scale is still weird...
+  const boxSizeMM = a4HeightMM / 1.7 / side;
   const imgSizeMM = boxSizeMM - imgPaddingMM;
   const boxSizeStr = boxSizeMM + "mm";
   const imgSizeStr = imgSizeMM + "mm";
+
+  console.log(boxSizeMM);
 
   return (
     <div>

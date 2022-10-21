@@ -1,20 +1,32 @@
-.printable {
-  margin: 0;
-  padding: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-@media page {
-  body {
-    size: A4;
-  }
-}
-
 @media print {
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  html,
+  body {
+    width: 210mm;
+    height: 297mm;
+  }
+
+  body {
+    margin: 0;
+    width: 100%;
+    background-color: #ffffff;
+  }
+
   * {
     visibility: hidden;
+  }
+
+  .printable {
+    display: block;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    width: 90%;
+    margin-left: 10mm;
   }
 
   .printable,
@@ -23,20 +35,12 @@
   }
 
   .printable-block {
+    display: block;
+    margin: auto;
     break-inside: avoid;
-    /* A4 / 2.2 to get 2/page with some buffer */
-    height: calc(297mm / 2.2);
-    /* A4 width with some buffer to keep as large as possible */
-    width: 200mm;
-    padding: 10mm;
-  }
-
-  .printable-block:nth-of-type(2n) {
-    break-after: always;
-  }
-
-  .printable-block:nth-of-type(2n + 1) {
-    break-before: always;
+    height: 55vh;
+    width: 100%;
+    padding: 15mm;
   }
 }
 
