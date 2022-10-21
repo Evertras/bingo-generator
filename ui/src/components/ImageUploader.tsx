@@ -1,23 +1,23 @@
 import { Component } from "solid-js";
+import { useImageDataRepository } from "../contexts/imageData.jsx";
 
-const ImageUploader: Component<{
-  setImageUploadCount: (n: number) => void;
-  setImageUploadCompletedCount: (f: (n: number) => number) => void;
-}> = (props) => {
+const ImageUploader: Component = () => {
+  const imageDataRepository = useImageDataRepository();
   const onChange = (e: any) => {
     const files = e.target.files;
     const numImages = files.length;
-    sessionStorage.setItem("imageCount", numImages);
-    props.setImageUploadCompletedCount((_) => 0);
-    props.setImageUploadCount(numImages);
 
     for (let i = 0; i < numImages; i++) {
       const reader = new FileReader();
 
       reader.addEventListener("load", () => {
-        sessionStorage.setItem(`img_${i}`, reader.result as string);
+        if (reader.result) {
+          const data = reader.result as string;
 
-        props.setImageUploadCompletedCount((c: number) => c + 1);
+          imageDataRepository.addImageData(data);
+        } else {
+          console.error("could not read file");
+        }
       });
 
       reader.readAsDataURL(files[i]);

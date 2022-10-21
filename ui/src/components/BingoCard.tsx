@@ -1,4 +1,5 @@
 import { Component, For } from "solid-js";
+import { useImageDataRepository } from "../contexts/imageData";
 
 const sizes: {
   [key: number]: {
@@ -17,28 +18,38 @@ const sizes: {
   49: { side: 7, freeSquare: false },
 };
 
-const BingoCard: Component<{ pictures: string[] }> = (props) => {
-  if (!Object.hasOwn(sizes, props.pictures.length)) {
-    return <div class="error">Size of {props.pictures.length} not valid</div>;
+const BingoCard: Component<{ totalImages: number }> = (props) => {
+  if (!Object.hasOwn(sizes, props.totalImages)) {
+    return <div class="error">Size of {props.totalImages} not valid</div>;
   }
 
-  const { side, freeSquare } = sizes[props.pictures.length];
+  const imageDataRepository = useImageDataRepository();
+  const imageData = imageDataRepository.getImageDataList();
+
+  const { side, freeSquare } = sizes[props.totalImages];
   const getRows = () => {
     const rows = new Array(side);
 
     if (freeSquare) {
-      const iFreeSquare = Math.floor(props.pictures.length / 2);
-      const withFreeSquare = props.pictures.slice(0, iFreeSquare);
+      const iFreeSquare = Math.floor(imageData.length / 2);
+      const withFreeSquare = imageData.slice(0, iFreeSquare);
       withFreeSquare.push("https://api.lorem.space/image/car?w=200&h=200");
-      withFreeSquare.push(...props.pictures.slice(iFreeSquare));
+      withFreeSquare.push(...imageData.slice(iFreeSquare));
 
-      // TODO: Fix this... reassigning props.pictures or trying to copy it just
+      // TODO: Fix this... reassigning imageData or trying to copy it just
       // breaks reactivity.
-      //props.pictures = withFreeSquare;
+      //imageData = withFreeSquare;
     }
 
     for (let i = 0; i < side; i++) {
-      rows.push(props.pictures.slice(i * side, (i + 1) * side));
+      const row = imageData.slice(i * side, (i + 1) * side);
+      const missing = side - row.length;
+
+      for (let j = 0; j < missing; j++) {
+        row.push("/src/assets/x.png");
+      }
+
+      rows.push(row);
     }
 
     return rows;
@@ -61,7 +72,7 @@ const BingoCard: Component<{ pictures: string[] }> = (props) => {
           {(row) => (
             <tr>
               <For each={row}>
-                {(pic) => (
+                {(pic: string) => (
                   <td
                     style={{
                       height: boxSizeStr,
