@@ -47,5 +47,6 @@
 @media not print {
   .printable {
     visibility: hidden;
+    display: none;
   }
 }
