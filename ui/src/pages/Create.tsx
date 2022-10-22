@@ -9,7 +9,19 @@ const Create: Component = () => {
 
   const [printCountStr, setPrintCountStr] = createSignal("10");
 
-  const printCount = () => parseInt(printCountStr(), 10);
+  const printCount = (): number => {
+    const n = parseInt(printCountStr(), 10);
+    if (isNaN(n) || n <= 0) {
+      return 1;
+    }
+
+    if (n > 100) {
+      return 100;
+    }
+
+    return n;
+  };
+
   const cards = () => (isNaN(printCount()) ? [] : new Array(printCount()));
 
   return (
@@ -77,7 +89,7 @@ const Create: Component = () => {
                   cursor: "pointer",
                 }}
               >
-                Print
+                Print (max 100)
               </div>
             </div>
           </div>
